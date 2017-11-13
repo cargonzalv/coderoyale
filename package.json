@@ -1,5 +1,5 @@
 {
-  "name": "mycoolapp",
+  "name": "coderoyale",
   "private": true,
   "scripts": {
     "start": "meteor run"
