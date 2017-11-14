@@ -4,9 +4,12 @@
       docker:
       # specify the version you desire here
       - image: circleci/node:7.10
-
+      - run: sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \ locale-gen
       environment:
       - METEOR_ALLOW_SUPERUSER: true
+      - ENV LANG: en_US.UTF-8  
+      - ENV LANGUAGE: en_US:en  
+      - ENV LC_ALL: en_US.UTF-8  
       steps:
       - checkout
 
@@ -28,6 +31,6 @@
             - "~/.npm"
             - "~/.meteor"
           key: v1-dependencies-{{ checksum "package.json" }}
-      - run: echo "LC_ALL=en_US.UTF-8" >> /etc/environment  
+      - run: sudo echo "LC_ALL=en_US.UTF-8" >> /etc/environment  
       # run tests!
       - run: npm run test
