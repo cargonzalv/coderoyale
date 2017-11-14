@@ -26,6 +26,4 @@
           key: v1-dependencies-{{ checksum "package.json" }}
         
       # run tests!
-      - run: npm run dev
-      - run: sleep 360
       - run: npm run test
