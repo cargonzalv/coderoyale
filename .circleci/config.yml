@@ -5,6 +5,7 @@
       # specify the version you desire here
       - image: circleci/node:7.10
       steps:
+      - checkout
 
       # Download and cache dependencies
       - restore_cache:
