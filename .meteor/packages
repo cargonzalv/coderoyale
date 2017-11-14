@@ -25,3 +25,4 @@ practicalmeteor:mocha
 practicalmeteor:chai
 dburles:factory
 practicalmeteor:sinon
+practicalmeteor:mocha-console-runner

@@ -16,6 +16,7 @@
 
       - run: if [ -d ~/.meteor ]; then sudo ln -s ~/.meteor/meteor /usr/local/bin/meteor; fi
       - run: if [ ! -e $HOME/.meteor/meteor ]; then curl https://install.meteor.com | sh; fi
+      - run: sudo npm install -g spacejam
       - run: npm install
       - save_cache:
           paths:
