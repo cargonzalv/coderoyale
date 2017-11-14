@@ -36,4 +36,4 @@
       # run tests!
       - run: npm run test
       - store_test_results:
-        path: .././unit-tests.xml
+          path: .././unit-tests.xml
