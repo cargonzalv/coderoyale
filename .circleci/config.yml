@@ -26,7 +26,6 @@
       - run: sudo npm install -g spacejam@1.6.2-rc.1
       - run: sudo npm install -g coffee-script
       - run: npm install
-      - run: meteor remove kadira:flow-router
       - save_cache:
           paths:
             - node_modules
