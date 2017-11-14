@@ -9,7 +9,7 @@
       - METEOR_ALLOW_SUPERUSER: true
       - ENV LANG: en_US.UTF-8  
       - ENV LANGUAGE: en_US:en  
-      - ENV LC_ALL: en_US.UTF-8  
+      - ENV LC_ALL: en_US.UTF-8 
       steps:
       - checkout
 
@@ -35,5 +35,11 @@
           key: v1-dependencies-{{ checksum "package.json" }}
       # run tests!
       - run: npm run test
+          command: npm run test
+          environment:
+            MOCHA_FILE: results/test-results.xml
+          when: always
       - store_test_results:
-          path: .././unit-tests.xml
+          path: ~/results
+      - store_artifacts:
+          path: ~/results 
