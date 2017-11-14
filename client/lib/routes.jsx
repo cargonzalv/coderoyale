@@ -5,3 +5,6 @@ FlowRouter.route("/",{
 		mount(App)
 	}
 })
+
+FlowRouter.route("/local",{
+})
