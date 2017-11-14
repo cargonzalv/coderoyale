@@ -27,4 +27,4 @@
           key: v1-dependencies-{{ checksum "package.json" }}
         
       # run tests!
-      - run: sudo spacejam test --driver-package=practicalmeteor:mocha-xunit-reporter --load-images=no --ssl-protocol=TLSv1 --xunit-out ./unit-tests.xml
+      - run: sudo npm run test --allow-superuser
