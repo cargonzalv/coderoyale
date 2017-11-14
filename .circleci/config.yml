@@ -21,7 +21,6 @@
           - v1-dependencies-
       - run: sudo locale-gen en_US.UTF8
       - run: sudo localedef -i en_US -f UTF-8 en_US.UTF-8
-      - run: sudo export LC_ALL="en_US.UTF-8"
       - run: if [ -d ~/.meteor ]; then sudo ln -s ~/.meteor/meteor /usr/local/bin/meteor; fi
       - run: if [ ! -e $HOME/.meteor/meteor ]; then curl https://install.meteor.com | sh; fi
       - run: sudo npm install -g spacejam@1.6.2-rc.1
