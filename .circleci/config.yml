@@ -34,12 +34,13 @@
             - "~/.meteor"
           key: v1-dependencies-{{ checksum "package.json" }}
       # run tests!
+      - run: mkdir ~/mocha
       - run:
-          command: spacejam test --driver-package=practicalmeteor:mocha-xunit-reporter --load-images=no --ssl-protocol=TLSv1 --xunit-out ~/.circleci/results/unit-tests.xml
+          command: spacejam test --driver-package=practicalmeteor:mocha-xunit-reporter --load-images=no --ssl-protocol=TLSv1 --xunit-out mocha/unit-tests.xml
           environment:
-            MOCHA_FILE: results/test-results.xml
+            MOCHA_FILE: mocha/test-results.xml
           when: always
       - store_test_results:
-          path: ~/results
+          path: ~/mocha
       - store_artifacts:
-          path: ~/results 
+          path: ~/mocha 
