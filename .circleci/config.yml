@@ -31,4 +31,5 @@
           key: v1-dependencies-{{ checksum "package.json" }}
         
       # run tests!
+      - run: export LC_ALL="en_US.UTF-8"
       - run: npm run test
