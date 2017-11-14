@@ -23,3 +23,4 @@ kadira:flow-router
 meteorhacks:inject-initial
 practicalmeteor:mocha
 practicalmeteor:chai
+dburles:factory

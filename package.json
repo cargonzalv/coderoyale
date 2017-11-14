@@ -3,12 +3,11 @@
   "private": true,
   "scripts": {
     "start": "meteor run",
-    "chimp-watch": "chimp --ddp=http://localhost:3000 --watch --mocha --path=tests",
-    "chimp-test": "chimp --mocha --path=tests",
-    "test": "chimp --ddp=http://localhost:3000 --browser=chrome"
+    "test": "meteor test --driver-package practicalmeteor:mocha"
   },
   "dependencies": {
     "babel-runtime": "^6.26.0",
+    "faker": "^4.1.0",
     "meteor-node-stubs": "^0.3.2",
     "react": "^16.1.1",
     "react-dom": "^16.1.1"
