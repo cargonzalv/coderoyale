@@ -4,6 +4,10 @@
       docker:
       # specify the version you desire here
       - image: circleci/node:7.10
+
+      environment:
+      - METEOR_ALLOW_SUPERUSER: true
+      
       steps:
       - checkout
 
@@ -27,4 +31,4 @@
           key: v1-dependencies-{{ checksum "package.json" }}
         
       # run tests!
-      - run: sudo npm run test --allow-superuser
+      - run: sudo npm run test
