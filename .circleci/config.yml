@@ -35,7 +35,7 @@
           key: v1-dependencies-{{ checksum "package.json" }}
       # run tests!
       - run:
-          command: npm run test
+          command: spacejam test --driver-package=practicalmeteor:mocha-xunit-reporter --load-images=no --ssl-protocol=TLSv1 --xunit-out ~/.circleci/results/unit-tests.xml
           environment:
             MOCHA_FILE: results/test-results.xml
           when: always

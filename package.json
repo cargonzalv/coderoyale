@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "start": "meteor run",
-    "test": "spacejam test --driver-package=practicalmeteor:mocha-xunit-reporter --load-images=no --ssl-protocol=TLSv1 --xunit-out .circleci/results/unit-tests.xml"
+    "test": "spacejam test --driver-package=practicalmeteor:mocha-xunit-reporter --load-images=no --ssl-protocol=TLSv1 --xunit-out ./circleci/results/unit-tests.xml"
   },
   "dependencies": {
     "babel-runtime": "^6.26.0",
