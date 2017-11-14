@@ -24,3 +24,4 @@ meteorhacks:inject-initial
 practicalmeteor:mocha
 practicalmeteor:chai
 dburles:factory
+practicalmeteor:sinon
