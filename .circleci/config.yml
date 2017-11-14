@@ -34,7 +34,7 @@
             - "~/.meteor"
           key: v1-dependencies-{{ checksum "package.json" }}
       # run tests!
-      - run: npm run test
+      - run:
           command: npm run test
           environment:
             MOCHA_FILE: results/test-results.xml
