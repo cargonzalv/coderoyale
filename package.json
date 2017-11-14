@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "babel-runtime": "^6.26.0",
+    "coffee-script": "^1.12.7",
     "faker": "^4.1.0",
     "meteor-node-stubs": "^0.3.2",
     "react": "^16.1.1",
