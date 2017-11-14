@@ -7,7 +7,7 @@
 
       environment:
       - METEOR_ALLOW_SUPERUSER: true
-      
+
       steps:
       - checkout
 
@@ -31,4 +31,4 @@
           key: v1-dependencies-{{ checksum "package.json" }}
         
       # run tests!
-      - run: sudo npm run test
+      - run: npm run test
