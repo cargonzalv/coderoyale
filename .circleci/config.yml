@@ -7,7 +7,6 @@
 
       environment:
       - METEOR_ALLOW_SUPERUSER: true
-      - LC_ALL: en_US.UTF.8
       steps:
       - checkout
 
@@ -29,6 +28,6 @@
             - "~/.npm"
             - "~/.meteor"
           key: v1-dependencies-{{ checksum "package.json" }}
-        
+      - run: echo "LC_ALL=en_US.UTF-8" >> /etc/environment  
       # run tests!
       - run: npm run test
