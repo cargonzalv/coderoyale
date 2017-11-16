@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import LandingPage from './pages/LandingPage'
   
 // App component - represents the whole app
 export default class App extends Component {
@@ -10,6 +11,7 @@ export default class App extends Component {
         <header>
           <h1>Todo List</h1>
         </header>
+        <LandingPage />
       </div>
     );
   }
