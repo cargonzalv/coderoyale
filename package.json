@@ -8,9 +8,15 @@
   "dependencies": {
     "babel-runtime": "^6.26.0",
     "faker": "^4.1.0",
+    "material-ui": "^0.19.4",
     "meteor-node-stubs": "^0.3.2",
+    "prop-types": "^15.6.0",
     "react": "^16.1.1",
+    "react-bootstrap-sweetalert": "^4.1.0",
+    "react-code-editor": "0.0.14",
     "react-dom": "^16.1.1",
+    "react-mounter": "^1.2.0",
+    "react-popup": "^0.8.0",
     "simpl-schema": "^0.5.0"
   },
   "devDependencies": {

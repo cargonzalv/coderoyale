@@ -1,1 +1,157 @@
 /* CSS declarations go here */
+@import "https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900";
+body#bootstrap-overrides {
+	color: #f0f0f0;
+	font-family: "Lato", sans-serif;
+	overflow-x: hidden;
+	 background: #5f7eaf; /* fallback for old browsers */
+}
+
+h2, .TitleList .Title {
+	font-size: 24px;
+	font-weight: 600;
+	line-height: 1.4;
+	margin-bottom: 1em;
+}
+
+p {
+	font-size: 15px;
+	font-weight: 300;
+	line-height: 1.6;
+	margin-bottom: 1em;
+}
+.Header {
+	/* FF3.6-15 */
+	background: -webkit-linear-gradient(top, black 0%, transparent 100%);
+	/* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom, black 0%, transparent 100%);
+	/* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6000000', endColorstr='#00000000',GradientType=0 );
+	/* IE6-9 */
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	padding: 40px;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	box-sizing: border-box;
+	z-index: 5;
+}
+#renderPage-target {
+	margin-top: 130px;
+}
+.container {
+  margin: 12% 0;
+  width:100%;
+  min-height: 100%;
+}
+.Navigation ul {
+	display: -webkit-box;
+	list-style: none;
+	display: -ms-flexbox;
+	display: flex;
+	height: 37px;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	padding: 0 10px;
+	width:100%;
+}
+.Navigation ul li {
+	font-weight: 400;
+	padding: 7px 10px;
+	font-size: 30px;
+	-webkit-transition: background .125s ease;
+	transition: background .125s ease;
+	border-radius: 3px;
+}
+.header ul { 
+	margin: 0; 
+	padding: 5px; 
+	list-style-type: none; 
+	text-align: center; 
+	background-color: #000; 
+} 
+ 
+.header ul li {  
+	display: inline; 
+} 
+ 
+.header ul li a { 
+	text-decoration: none; 
+	padding: .2em 1em; 
+	color: #fff; 
+	background-color: #000; 
+} 
+ 
+.header ul li a:hover { 
+	color: #000; 
+	background-color: #fff; 
+} 
+#logo{
+	margin-right: 5%;
+}
+#logo > a{
+	text-decoration: none;
+}
+h1{
+	color:#af935f;
+}
+.listItems:hover {
+	cursor: pointer;
+}
+
+.coding{
+	border-left: solid;
+}
+.codingPage{
+	width:100%;
+	height:500px;
+}
+.coding > div > h2{
+	text-align: center;
+}
+.set.green .btn.pri {
+  background: #6b6;
+}
+.set.green .btn.pri:hover {
+  background: #5a5;
+}
+.btn {
+  display: inline-block;
+  align-content: center;
+  min-width: 110px;
+  margin: 15px 5px;
+  padding: 10px 15px 12px;
+  font: 700 12px/1 'Open Sans', sans-serif;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 1px rgba(0,0,0,.1), inset 0 -10px 20px rgba(0,0,0,.1);
+  cursor: pointer;
+}
+.btn.pri {
+  color: #fff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
+}
+
+.btn.pri.ico {
+  position: relative;
+  padding-left: 40px;
+  text-align: left;
+}
+.btn.pri.ico:before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 30px;
+  padding: 10px 0 12px;
+  font-family: fontawesome;
+  text-align: center;
+  border-radius: 3px 0 0 3px;
+  background: rgba(0, 0, 0, 0.15);
+}
+.set.green .btn.sec.ico:before {
+  content: "\2713";
+}
