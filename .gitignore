@@ -2,3 +2,4 @@ node_modules/
 .build*
 *.browserify.js.cached
 *.browserify.js.map
+settings.json

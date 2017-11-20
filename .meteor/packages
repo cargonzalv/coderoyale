@@ -27,3 +27,5 @@ practicalmeteor:mocha
 coffeescript@1.12.7_3
 practicalmeteor:mocha-console-runner
 kadira:flow-router
+accounts-github
+service-configuration
