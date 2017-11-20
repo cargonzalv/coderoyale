@@ -29,3 +29,4 @@ practicalmeteor:mocha-console-runner
 kadira:flow-router
 accounts-github
 service-configuration
+react-meteor-data
