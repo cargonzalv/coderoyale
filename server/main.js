@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
-
+import { ActiveGame } from '../imports/api/active-games.js';
+import { HistoryGame} from '../imports/api/history-games.js';
 Meteor.startup(() => {
   // code to run on server at startup
   Inject.rawModHtml("addLanguage", function(html) {
