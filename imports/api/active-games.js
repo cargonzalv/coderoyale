@@ -3,7 +3,8 @@ import { Mongo } from "meteor/mongo";
 import { check } from "meteor/check";
 import SimpleSchema from "simpl-schema";
 
-import {Challenge} from './challenges.js' 
+import {Challenge} from './challenges' 
+import {HistoryGame} from './history_games'
 
 const activeGameSchema = new SimpleSchema({
 	started:Boolean,
@@ -98,5 +99,112 @@ Meteor.methods({
 	    }else{
 	    	throw new Meteor.Error('not-authorized')
 	    }
+	},
+	'active_games.submit'(game_id, language){
+
+		const user_id = Meteor.userId()
+
+		if(!user_id){
+			throw new Meteor.Error('not-autorized')
+		}
+
+		const game = ActiveGame.findOne({_id:game_id})
+		if(!game){
+			throw new Meteor.Error('no-such-game')
+		}
+		const challenge = Challenge.findOne({_id:game.challenge})
+		if(Meteor.isServer){
+			if(game.player1 == user_id){
+				HTTP.post("http://api.hackerrank.com/checker/submission.json", {
+					params:{
+						source:game.codeP1,
+						lang:language,
+						testcases:challenge.testInput,
+						api_key:Meteor.settings.coderoyale.key
+					}
+				}, (err, result) =>{
+					const numTestCases = challenge.testOutput.length
+					var answer = {
+						error:"",
+						passed:0,
+						totalTests:numTestCases,
+						success:false,
+					}
+					if(err){
+						throw new Meteor.Error('problem-with-submission')
+					}
+					if(result.compilemessage !== ""){
+						answer.error = result.compilemessage
+					}else{
+						challenge.testOutput.forEach((output, i)=>{
+							if(output === result.stdout[i]){
+								answer.passed++
+							}
+						})
+						if(answer.passed === numTestCases){
+							answer.success = true
+							ActiveGame.update({_id:game},{$set:{
+					    		finished:true
+					    	}})
+							HistoryGame.insert({
+								challenge:challenge._id,
+								winner:game.player1,
+								loser:game.player2,
+								codeP1:game.codeP1,
+								codeP2:game.codeP2,
+							})
+							return answer
+						}
+					}
+				})
+
+			}else if(game.player2 == user_id){
+				HTTP.post("http://api.hackerrank.com/checker/submission.json", {
+					params:{
+						source:game.codeP2,
+						lang:language,
+						testcases:challenge.testInput,
+						api_key:Meteor.settings.coderoyale.key
+					}
+				}, (err, result) =>{
+					const numTestCases = challenge.testOutput.length
+					var answer = {
+						error:"",
+						passed:0,
+						totalTests:numTestCases,
+						success:false,
+					}
+					if(err){
+						throw new Meteor.Error('problem-with-submission')
+					}
+					if(result.compilemessage !== ""){
+						answer.error = result.compilemessage
+					}else{
+						challenge.testOutput.forEach((output, i)=>{
+							if(output === result.stdout[i]){
+								answer.passed++
+							}
+						})
+						if(answer.passed === numTestCases){
+							answer.success = true
+							ActiveGame.update({_id:game},{$set:{
+					    		finished:true
+					    	}})
+							HistoryGame.insert({
+								challenge:challenge._id,
+								winner:game.player2,
+								loser:game.player1,
+								codeP1:game.codeP1,
+								codeP2:game.codeP2,
+							})
+							return answer
+						}
+					}
+				})
+			}else{
+				throw new Meteor.Error('not-allowed-submission')
+			}
+		}
+		
 	}
 })
