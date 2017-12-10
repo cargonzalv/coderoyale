@@ -16,7 +16,7 @@ if (Meteor.isServer) {
   // This code only runs on the server
   Meteor.publish('challenges', function challengesPublish(){
     return Challenge.find({})
-  }
+  })
 
 }
 
@@ -30,8 +30,8 @@ Meteor.methods({
       testOutput:testOutput,
     }
 
-    Challenge.insert(){
+    Challenge.insert({
       new_challenge
-    }
+    })
   }
 });

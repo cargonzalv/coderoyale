@@ -4,7 +4,7 @@ import { check } from "meteor/check";
 import SimpleSchema from "simpl-schema";
 
 import {Challenge} from './challenges' 
-import {HistoryGame} from './history_games'
+import {HistoryGame} from './history-games'
 
 const activeGameSchema = new SimpleSchema({
 	started:Boolean,
@@ -27,10 +27,11 @@ if (Meteor.isServer) {
     	started:true,
     	finished:false,
     })
-  }
+  })
   Meteor.publish('my_current_games', function current_games(){
   	return ActiveGame.find({
   		started:true,
+  		finished:false,
   		$or:[
   			{player1:this.userId},
   			{player2:this.userId},
@@ -73,27 +74,27 @@ Meteor.methods({
 		if (! Meteor.userId()) {
 	      throw new Meteor.Error('not-authorized')
 		}
-		const challenge = Challenge.findOne({started:false})
-		ActiveGame.update({_id:challenge._id},{$set:{
+		const game = ActiveGame.findOne({started:false})
+		ActiveGame.update({_id:game._id},{$set:{
 
-		  	player2:Meteor.userId()
+		  	player2:Meteor.userId(),
 		  	openedP2:true,
-		  	started:true;
+		  	started:true,
 		  }
 		})
-		return challenge._id;
+		return game._id;
 	},
-	'active_games.update'(game, code){
+	'active_games.update'(game_id, code){
 		if (! Meteor.userId()) {
 	      throw new Meteor.Error('not-authorized')
 	    }
-	    const game = ActiveGame.findOne({_id:game})
+	    const game = ActiveGame.findOne({_id:game_d})
 	    if(game.player1 == Meteor.userId()){
 	    	ActiveGame.update({_id:game},{$set:{
 	    		codeP1:code
 	    	}})
 	    }else if(game.player2 == Meteor.userId()){
-	    	ActiveGame.update({_id:game},{$set:{
+	    	ActiveGame.update({_id:game_id},{$set:{
 	    		codeP2:code
 	    	}})
 	    }else{
