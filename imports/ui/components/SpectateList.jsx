@@ -8,9 +8,10 @@ class SpectateList extends React.Component{
 		if(this.props.games.length != 0){
 		return (
 			this.props.games.map((game, index) => {
+				console.log(game);
 				return (
 					<li className="list-group-item d-flex justify-content-between align-items-center">
-          				<h5 className="mb-1">{game}</h5>
+          			<h5 className="mb-1">{game.challenge}</h5>
           			<button className="btn">Spectate</button>
 					</li>
 					)

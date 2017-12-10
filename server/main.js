@@ -1,4 +1,5 @@
 import { Meteor } from 'meteor/meteor';
+import {Challenge} from '../imports/api/challenges.js';
 import { ActiveGame } from '../imports/api/active-games.js';
 import { HistoryGame} from '../imports/api/history-games.js';
 Meteor.startup(() => {
