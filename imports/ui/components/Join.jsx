@@ -12,26 +12,31 @@ class Join extends Component{
 		};
 		this.joinChallenge = this.joinChallenge.bind(this);
 		this.showLoading = this.showLoading.bind(this);
-		
+		this.cancelJoin = this.cancelJoin.bind(this);
+	}
 	showLoading(ev){
        this.setState({alert: this.getLoading()});
     }
 
-
+    cancelJoin(){
+    	console.log("fwef");
+    	this.setState({alert:""});
+    }
 
 
 
     getLoading(){
       return(
           <SweetAlert 
+          		custom
           		title="Finding match"
           		timer= {2000}
           		showConfirm={false}
           		showCancelButton={true}
           		onCancel={this.cancelJoin()} 
-          		custom
+          		closeOnClickOutside={true}
 				showCancel
-				cancelBtnText="No"
+				cancelBtnText="Cancel"
 				cancelBtnBsStyle="default"
 				customIcon="loading.gif">
             Your question has been submited!
