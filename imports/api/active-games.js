@@ -18,8 +18,15 @@ const activeGameSchema = new SimpleSchema({
 	codeP2:String,
 })
 
-export const ActiveGame = new Mongo.Collection("active_games")
+export const ActiveGame = new Mongo.Collection("active_games");
 
+
+ActiveGame.allow({
+  insert(userId, doc) {
+    // The user must be logged in and the document must be owned by the user.
+    return userId
+  }
+});
 if (Meteor.isServer) {
   // This code only runs on the server
   Meteor.publish('spectable_games', function active_gamesPublish(){
@@ -27,7 +34,7 @@ if (Meteor.isServer) {
     	started:true,
     	finished:false,
     })
-  })
+  });
   Meteor.publish('my_current_games', function current_games(){
   	return ActiveGame.find({
   		started:true,
@@ -37,7 +44,7 @@ if (Meteor.isServer) {
   			{player2:this.userId},
   		]
   	})
-  })
+  });
 
 }
 
@@ -57,18 +64,18 @@ Meteor.methods({
 			codeP2:'',
 
 		}
+		const handle = Meteor.subscribe('challenges');
+			Tracker.autorun(() => {
+  			const isReady = handle.ready();
+  			console.log(isReady)
+  			if(isReady){
+  				const randIndex = Math.floor(Math.random()*Challenge.find().count());
+				const rand_challenge = Challenge.findOne({},{skip:randIndex});
+				new_game.challenge = rand_challenge._id;
+				return ActiveGame.insert(new_game);
+		  	}
+		});
 
-		const randIndex = Math.random()*Challenge.count()
-		const rand_challenge = Challenge.findOne({},{skip:randIndex})
-		new_game.challenge = rand_challenge._id
-
-		ActiveGame.insert(new_game, function(err, id){
-			if(err){
-				throw new Meteor.Error('error-creating')
-			}else{
-				return id
-			}
-		})
 	},
 	'active_games.join'(){
 		if (! Meteor.userId()) {
@@ -79,16 +86,16 @@ Meteor.methods({
 
 		  	player2:Meteor.userId(),
 		  	openedP2:true,
-		  	started:true,
+		  	started:true
 		  }
 		})
-		return game._id;
+		return game != undefined ? game._id:null;
 	},
-	'active_games.update'(game_id, code){
+	'active_games.update'(gameId, code){
 		if (! Meteor.userId()) {
 	      throw new Meteor.Error('not-authorized')
 	    }
-	    const game = ActiveGame.findOne({_id:game_d})
+	    const game = ActiveGame.findOne({_id:gameId})
 	    if(game.player1 == Meteor.userId()){
 	    	ActiveGame.update({_id:game},{$set:{
 	    		codeP1:code
