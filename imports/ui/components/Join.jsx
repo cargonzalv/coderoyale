@@ -12,14 +12,16 @@ class Join extends Component{
 		};
 		this.joinChallenge = this.joinChallenge.bind(this);
 		this.showLoading = this.showLoading.bind(this);
+		this.cancelJoin = this.cancelJoin.bind(this)
+	}
 		
 	showLoading(ev){
        this.setState({alert: this.getLoading()});
     }
 
-
-
-
+    cancelJoin(){
+    	this.setState({alert:null})
+    }
 
     getLoading(){
       return(
@@ -34,7 +36,7 @@ class Join extends Component{
 				cancelBtnText="No"
 				cancelBtnBsStyle="default"
 				customIcon="loading.gif">
-            Your question has been submited!
+            You're waiting to find a match!
           </SweetAlert>
         )
   }

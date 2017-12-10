@@ -82,14 +82,20 @@ Meteor.methods({
 	      throw new Meteor.Error('not-authorized')
 		}
 		const game = ActiveGame.findOne({started:false})
-		ActiveGame.update({_id:game._id},{$set:{
+		if(game){
 
-		  	player2:Meteor.userId(),
-		  	openedP2:true,
-		  	started:true
-		  }
-		})
-		return game != undefined ? game._id:null;
+			ActiveGame.update({_id:game._id},{$set:{
+
+			  	player2:Meteor.userId(),
+			  	openedP2:true,
+			  	started:true
+			  }
+			})
+			return game._id
+
+		}else{
+			return null
+		}		
 	},
 	'active_games.update'(gameId, code){
 		if (! Meteor.userId()) {
