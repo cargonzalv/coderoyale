@@ -8,8 +8,8 @@ FlowRouter.route("/",{
 	}
 })
 
-FlowRouter.route("/challenge",{
+FlowRouter.route("/game/:id",{
 	action: function(params, queryParams) {
-		mount(CodingPage)
+		mount(CodingPage, {id:params.id})
 	}
 })

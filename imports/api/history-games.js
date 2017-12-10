@@ -12,3 +12,14 @@ const historyGameSchema = new SimpleSchema({
 })
 
 export const HistoryGame = new Mongo.Collection("history_games")
+
+if(Meteor.isServer){
+	Meteor.publish('my_game_history', function(){
+		return HistoryGame.find({
+			$or:[
+				{winner:this.userId},
+				{loser:this.userId},
+			]
+		})
+	})
+}

@@ -14,16 +14,14 @@ class Join extends Component{
 		this.showLoading = this.showLoading.bind(this);
 		this.cancelJoin = this.cancelJoin.bind(this);
 	}
+		
 	showLoading(ev){
        this.setState({alert: this.getLoading()});
     }
 
     cancelJoin(){
-    	console.log("fwef");
-    	this.setState({alert:""});
+    	this.setState({alert:null})
     }
-
-
 
     getLoading(){
       return(
@@ -33,13 +31,18 @@ class Join extends Component{
           		timer= {2000}
           		showConfirm={false}
           		showCancelButton={true}
-          		onCancel={this.cancelJoin()} 
+          		onCancel={this.cancelJoin} 
           		closeOnClickOutside={true}
 				showCancel
 				cancelBtnText="Cancel"
 				cancelBtnBsStyle="default"
-				customIcon="loading.gif">
-            Your question has been submited!
+				customIcon={<div className="loader">
+  				<span>{'{'} </span><span>{'}'}
+  				</span>
+				</div>}
+				style={{top:'10px'}}
+			>
+            You're waiting to find a match!
           </SweetAlert>
         )
   }

@@ -1,4 +1,6 @@
 import React from 'react'
+import { createContainer } from "meteor/react-meteor-data";
+import { ActiveGame } from "../api/active-games.js";
 
 import Challenge from "../components/Challenge"
 import Coding from "../components/Coding"
@@ -23,4 +25,11 @@ class CodingPage extends React.Component{
 	}
 }
 
-export default CodingPage
+export default createContainer(({id}) => {
+  Meteor.subscribe('my_current_game',id);
+  console.log(id);
+  return {
+    question: ActiveGame.findOne({}),
+    currentUser: Meteor.user()
+  };
+}, CodingPage);

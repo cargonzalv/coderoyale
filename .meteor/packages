@@ -31,4 +31,5 @@ accounts-github
 service-configuration
 react-meteor-data
 http
+johanbrook:publication-collector
 meteortoys:allthings

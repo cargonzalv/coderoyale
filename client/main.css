@@ -12,6 +12,7 @@ h2, .TitleList .Title {
 	font-weight: 600;
 	line-height: 1.4;
 	margin-bottom: 1em;
+	color:#2D0808 !important;
 }
 
 p {
@@ -154,4 +155,47 @@ h1{
 }
 .set.green .btn.sec.ico:before {
   content: "\2713";
+}
+
+
+#react-root > div > div > div > div:nth-child(2) > div > div.sweet-alert > div:nth-child(1){
+
+}
+body {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+  background-color: #4684ee;
+}
+.loader {
+  color:#908681;
+  font-family: Consolas, Menlo, Monaco, monospace;
+  font-weight: bold;
+  font-size: 15vh;
+  opacity: 0.8;
+}
+.loader span {
+  display: inline-block;
+  -webkit-animation: pulse 0.4s alternate infinite ease-in-out;
+          animation: pulse 0.4s alternate infinite ease-in-out;
+}
+.loader span:nth-child(odd) {
+  -webkit-animation-delay: 0.4s;
+          animation-delay: 0.4s;
+}
+@-webkit-keyframes pulse {
+  to {
+    -webkit-transform: scale(0.8);
+            transform: scale(0.8);
+    opacity: 0.5;
+  }
+}
+@keyframes pulse {
+  to {
+    -webkit-transform: scale(0.8);
+            transform: scale(0.8);
+    opacity: 0.5;
+  }
 }

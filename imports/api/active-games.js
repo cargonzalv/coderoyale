@@ -38,6 +38,18 @@ if (Meteor.isServer) {
   Meteor.publish('my_current_games', function current_games(){
   	return ActiveGame.find({
   		started:true,
+  		finished:false,
+  		$or:[
+  			{player1:this.userId},
+  			{player2:this.userId},
+  		]
+  	})
+  });
+  Meteor.publish('my_current_game', function current_game(id){
+  	return ActiveGame.findOne({
+  		started:true,
+  		finished:false,
+  		_id:id,
   		$or:[
   			{player1:this.userId},
   			{player2:this.userId},
@@ -81,14 +93,20 @@ Meteor.methods({
 	      throw new Meteor.Error('not-authorized')
 		}
 		const game = ActiveGame.findOne({started:false})
-		ActiveGame.update({_id:game._id},{$set:{
+		if(game){
 
-		  	player2:Meteor.userId(),
-		  	openedP2:true,
-		  	started:true
-		  }
-		})
-		return game != undefined ? game._id:null;
+			ActiveGame.update({_id:game._id},{$set:{
+
+			  	player2:Meteor.userId(),
+			  	openedP2:true,
+			  	started:true
+			  }
+			})
+			return game._id
+
+		}else{
+			return null
+		}		
 	},
 	'active_games.update'(gameId, code){
 		if (! Meteor.userId()) {
@@ -100,7 +118,7 @@ Meteor.methods({
 	    		codeP1:code
 	    	}})
 	    }else if(game.player2 == Meteor.userId()){
-	    	ActiveGame.update({_id:game},{$set:{
+	    	ActiveGame.update({_id:game_id},{$set:{
 	    		codeP2:code
 	    	}})
 	    }else{

@@ -17,7 +17,6 @@ if (Meteor.isServer) {
   Meteor.publish('challenges', function challengesPublish(){
     return Challenge.find({});
   });
-
 }
 
 Meteor.methods({
