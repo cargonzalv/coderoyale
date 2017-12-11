@@ -1,6 +1,6 @@
 import React from 'react'
 import { createContainer } from "meteor/react-meteor-data";
-import { ActiveGame } from "../api/active-games.js";
+import { ActiveGame } from "../../api/active-games.js";
 
 import Challenge from "../components/Challenge"
 import Coding from "../components/Coding"

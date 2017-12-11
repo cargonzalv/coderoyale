@@ -12,7 +12,9 @@ class Login extends React.Component{
 	}
 
 	loginGithub(){
-		Meteor.loginWithGithub((err) => {
+		Meteor.loginWithGithub({
+			requestPermissions: []
+		}, (err) => {
 		  if (err) {
 		    console.log(err);
 		  } else {

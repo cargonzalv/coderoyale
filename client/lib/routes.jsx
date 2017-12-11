@@ -1,6 +1,7 @@
 import App from '../../imports/ui/App.jsx';
 import {mount, withOptions} from 'react-mounter';
 import CodingPage from '../../imports/ui/pages/CodingPage.jsx';
+import ProfilePage from '../../imports/ui/users/UserPageContainer'
 
 FlowRouter.route("/",{
 	action: function(params, queryParams) {
@@ -13,3 +14,10 @@ FlowRouter.route("/game/:id",{
 		mount(CodingPage, {id:params.id})
 	}
 })
+
+FlowRouter.route("/user/:id",{
+	action: function(params, queryParams) {
+		mount(ProfilePage, {id:params.id})
+	}
+})
+
