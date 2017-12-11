@@ -10,13 +10,18 @@ const challengeSchema = new SimpleSchema({
   testOutput:[String]
 })
 
-export const Challenge = new Mongo.Collection("challenges");
+export const Challenges = new Mongo.Collection("challenges");
 
 if (Meteor.isServer) {
   // This code only runs on the server
   Meteor.publish('challenges', function challengesPublish(){
-    return Challenge.find({});
+    return Challenges.find({});
   });
+  Meteor.publish('challenges.id',function challenge(id){
+    return Challenges.find({
+      _id:id
+    })
+  })
 }
 
 Meteor.methods({
@@ -29,7 +34,7 @@ Meteor.methods({
       testOutput:testOutput
     };
 
-    Challenge.insert(new_challenge, function(err, id){
+    Challenges.insert(new_challenge, function(err, id){
       if(err){
         throw new Meteor.Error('error-creating')
       }else{

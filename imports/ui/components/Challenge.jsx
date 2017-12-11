@@ -1,25 +1,44 @@
 import React from 'react'
+import { createContainer } from "meteor/react-meteor-data";
+import { Challenges } from "../../api/challenges.js";
 
 class Challenge extends React.Component{
 	
 	render(){
 		return(
 			<div className="challenge">
-				<h2>Excepteur nisi veniam nulla.</h2>
+				<h2>{this.props.challenge.title}</h2>
 				<br/>
-				<h4>Est et et eu mollit non exercitation dolore occaecat proident veniam enim eiusmod
-				 elit laboris aute est magna duis aute aute in sint sunt magna consequat pariatur sint.\n</h4>
+				<h4>{this.props.challenge.descripcion}</h4>
 				 <strong> Input: </strong>
-				 <br/>
-				 <h5> Velit occaecat laboris.</h5>
-				 <br/>
+				<br/>
+				 {this.props.challenge.testInput.map((input)=>(
+				 		<div>
+							<h5> {input}</h5>
+				 			<br/>
+				 		</div>
+				 		)
+				 	)
+				}
 				 <strong> Output: </strong>
-				 <h5> Velit occaecat laboris.</h5>
-				 <strong> Constraints: </strong>
-				 <h5> Velit occaecat laboris.</h5>
+				 <br/>
+				 {this.props.challenge.testOutput.map((output)=>(
+				 	<div>
+						<h5> {output}</h5>
+					 	<br/>
+				 	</div>
+				 	)
+				 )
+				}
 			</div>
 		)
 	}
 }
 
-export default Challenge
+export default createContainer(props => {
+	console.log(props);
+  return {
+    challenge:Challenges.findOne({_id:props.game.challenge}),
+    currentUser: Meteor.user()
+  };
+}, Challenge);

@@ -22,7 +22,11 @@ class LandingPage extends React.Component{
 }
 
 export default createContainer(() => {
+	const handle = Meteor.subscribe('challenges');
+	const handle2 = Meteor.subscribe('queuedGames');
   return {
+  	ready:handle.ready(),
+  	ready2:handle2.ready(),
     currentUser:Meteor.user(),
   };
 }, LandingPage);
