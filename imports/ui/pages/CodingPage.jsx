@@ -11,10 +11,16 @@ class CodingPage extends React.Component{
 			<div className='container'>
 				<div className = 'row codingPage'>
 					<div className = "col-md-6">
-						<Challenge game = {this.props.game}/>
+					{this.props.ready ?
+						<Challenge challenge = {this.props.game.challenge}/>
+						: ""
+					}
 					</div>
 					<div className = "col-md-6 coding">
+					{this.props.ready ? 
 						<Coding game = {this.props.game}/>
+						: ""
+					}
 						<div className='set green'>
 							<a className='btn pri ico'>Submit!</a>
 						</div>
@@ -26,10 +32,11 @@ class CodingPage extends React.Component{
 }
 
 export default createContainer(({id}) => {
-var handle;
-  Meteor.subscribe('my_current_game',id);
+	console.log(id);
+const handle = Meteor.subscribe('my_current_games');
   return {
-    game:ActiveGame.findOne({}),
+  	ready:handle.ready(),
+    game:ActiveGame.findOne({_id:id}),
     currentUser: Meteor.user()
   };
 }, CodingPage);

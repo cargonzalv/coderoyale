@@ -13,7 +13,7 @@ class LandingPage extends React.Component{
 				<div className = 'row'>
 					<SpectateList />
 					{!this.props.currentUser ? 
-						<Login />:<Join/>
+						<Login />:<Join ready={this.props.ready}/>
 					}
 				</div>
 			</div>

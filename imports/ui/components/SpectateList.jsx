@@ -37,7 +37,7 @@ export default createContainer(() => {
 
   return {
   ready:handle.ready(),
-	games: ActiveGame.find({}).fetch(),
+	games: ActiveGame.find({started:true}).fetch(),
 	currentUser: Meteor.user(),
   };
 }, SpectateList);

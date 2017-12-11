@@ -23,7 +23,10 @@ class Join extends Component{
     }
 
     cancelJoin(){
-    	this.setState({alert:null})
+    	this.setState({alert:null});
+    	Meteor.call("active_games.remove",this.state.id,(err,result)=>{
+    		console.log(err);
+    	})
     }
 
     getLoading(){
@@ -59,6 +62,7 @@ class Join extends Component{
 			}
 			else{
 				Meteor.call("active-games.create",(err, result2)=>{
+					this.setState({id:result2});
 					var res = false;
 					var interval = window.setInterval(()=>{
 						var game = ActiveGame.findOne({_id:result2});
@@ -73,15 +77,13 @@ class Join extends Component{
 						
 					})
 			}
-			
-			
 		})
 					
 	}
 	render(){
 		return(
 			<div className="col-md-6">
-				<button className="btn btn-lg" onClick={this.joinChallenge}>
+				<button disabled={!this.props.ready} className="btn btn-lg" onClick={this.joinChallenge}>
 					Start Challenge
 				</button>
 				{this.state.alert}

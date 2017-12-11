@@ -46,7 +46,7 @@ if (Meteor.isServer) {
   		]
   	})
   });
-  Meteor.publish('queuedGames', function(id){
+  Meteor.publish('queuedGames', function(){
   	return ActiveGame.find({
   		finished:false
   	})
@@ -95,6 +95,13 @@ Meteor.methods({
 		}else{
 			return null
 		}		
+	},
+	'active_games.remove'(id){
+		if (! Meteor.userId()) {
+	      throw new Meteor.Error('not-authorized')
+	    }
+		ActiveGame.remove({_id:id});
+
 	},
 	'active_games.update'(gameId, code){
 		if (! Meteor.userId()) {

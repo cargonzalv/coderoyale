@@ -6,10 +6,12 @@ class Challenge extends React.Component{
 	
 	render(){
 		return(
+			<div>
+			{this.props.challenge &&
 			<div className="challenge">
-				<h2>{this.props.challenge.title}</h2>
+				<h2>{this.props.challenge.name}</h2>
 				<br/>
-				<h4>{this.props.challenge.descripcion}</h4>
+				<h4>{this.props.challenge.description}</h4>
 				 <strong> Input: </strong>
 				<br/>
 				 {this.props.challenge.testInput.map((input)=>(
@@ -30,15 +32,18 @@ class Challenge extends React.Component{
 				 	)
 				 )
 				}
+				</div>
+			}
 			</div>
 		)
 	}
 }
 
-export default createContainer(props => {
-	console.log(props);
+export default createContainer(({challenge}) => {
+	const handle = Meteor.subscribe('challenges');
   return {
-    challenge:Challenges.findOne({_id:props.game.challenge}),
+  	ready:handle.ready(),
+    challenge:Challenges.findOne({_id:challenge}),
     currentUser: Meteor.user()
   };
 }, Challenge);

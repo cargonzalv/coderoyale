@@ -72,8 +72,11 @@ onLoad() {
 
   onChange(newValue) {
     console.log('change', newValue);
-    this.setState({
+    
+    Meteor.call("active_games.update",this.props.game._id,newValue,(err,result)=>{
+      this.setState({
       value: newValue
+      })
     })
   }
 onSelectionChange(newValue, event) {
