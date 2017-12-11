@@ -173,6 +173,7 @@ Meteor.methods({
 								codeP1:game.codeP1,
 								codeP2:game.codeP2,
 							})
+							Meteor.call('register-challenge',game.player1, challenge._id)
 							return answer
 						}
 					}
@@ -217,6 +218,7 @@ Meteor.methods({
 								codeP1:game.codeP1,
 								codeP2:game.codeP2,
 							})
+							Meteor.call('register-challenge',game.player2, challenge._id)
 							return answer
 						}
 					}

@@ -49,6 +49,7 @@ Meteor.startup(() => {
 
   	user.profile = profile;
     user.profile.score=0;
+    user.profile.challenges = []
   	return user;
   });
   Meteor.methods({

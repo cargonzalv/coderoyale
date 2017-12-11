@@ -31,3 +31,24 @@ if(Meteor.isServer){
 		})
 	})
 }
+
+Meteor.methods({
+	'register-challenge'(id_user, id_challenge){
+		const challenges = Meteor.users.findOne({_id:id_user}).profile.challenges
+		var completed = false
+
+		challenges.forEach((challenge)=>{
+			if(challenge === id_challenge){
+				completed = true
+			}
+		})
+
+		if(!completed){
+			Meteor.users.update({_id:id_user},{
+				$push:{
+					'profile.challenges':id_challenge
+				}
+			})
+		}
+	}
+})
