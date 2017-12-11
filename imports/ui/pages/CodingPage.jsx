@@ -10,20 +10,17 @@ class CodingPage extends React.Component{
 		return(
 			<div className='container'>
 				<div className = 'row codingPage'>
-					<div className = "col-md-6">
+					<div className = "col-md-4">
 					{this.props.ready ?
 						<Challenge challenge = {this.props.game.challenge}/>
 						: ""
 					}
 					</div>
-					<div className = "col-md-6 coding">
+					<div className = "col-md-8 coding">
 					{this.props.ready ? 
 						<Coding game = {this.props.game}/>
 						: ""
 					}
-						<div className='set green'>
-							<a className='btn pri ico'>Submit!</a>
-						</div>
 					</div>
 				</div>
 			</div>

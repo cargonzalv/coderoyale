@@ -2,6 +2,7 @@ import React from 'react'
 import { render } from 'react-dom';
 import brace from 'brace';
 import AceEditor from 'react-ace';
+import SweetAlert from "react-bootstrap-sweetalert";
 
 import 'brace/mode/java';
 import 'brace/snippets/java';
@@ -58,11 +59,125 @@ import 'brace/theme/terminal';
 /*eslint-disable no-alert, no-console */
 import 'brace/ext/language_tools';
 import 'brace/ext/searchbox';
+const defaultValueJavascript =
+`process.stdin.resume();
+process.stdin.setEncoding('ascii');
 
+var input_stdin = "";
+var input_stdin_array = "";
+var input_currentline = 0;
+
+process.stdin.on('data', function (data) {
+    input_stdin += data;
+});
+
+process.stdin.on('end', function () {
+    input_stdin_array = input_stdin.split("\\n");
+    main();    
+});
+
+function readLine() {
+    return input_stdin_array[input_currentline++];
+}
+
+/////////////// ignore above this line ////////////////////
+
+function solveMeFirst(input) {
+  // Hint: Type return a+b below   
+  
+}
+
+function main() {
+    // write your code here.
+    // call readLine() to read a line.
+    // use console.log() to write to stdout
+
+    var input = parseInt(readLine());
+
+    var output = solveMeFirst(input);
+    console.log(output);
+}
+`;
+const defaultValueJava =
+`import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+public class Solution {
+
+
+    static int solveMeFirst(int a) {
+      
+   }
+
+   
+ public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int a;
+        a = in.nextInt();
+        int sum;
+        sum = solveMeFirst(a);
+        System.out.println(sum);
+   }
+}
+
+`;
 const defaultValue =
-`function onLoad(editor) {
-  console.log(\"i\'ve loaded\");
-}`;
+`def solveMeFirst(a):
+  
+
+
+num1 = input()
+res = solveMeFirst(num1)
+print res
+`;
+const defaultValueRuby =
+`
+def solveMeFirst (a)
+  
+end
+val1 = gets.to_i
+val2 = gets.to_i
+res = solveMeFirst(val1)
+print (res)
+`;
+const defaultValueGo =
+`
+package main
+import "fmt"
+
+func solveMeFirst(a uint32) uint32{
+
+}
+
+func main() {
+    var a, res uint32
+    fmt.Scanf("%v\n%v", &a)
+    res = solveMeFirst(a)
+    fmt.Println(res)
+}
+
+`;
+const defaultValueCSharp =
+`
+using System;
+using System.Collections.Generic;
+using System.IO;
+class Solution {
+    static int solveMeFirst(int a) { 
+      
+      
+    }
+    static void Main(String[] args) {
+        int val1 = Convert.ToInt32(Console.ReadLine());
+        int res = solveMeFirst(val1);
+        Console.WriteLine(res);
+    }
+}      
+
+`;
 
 
 class Coding extends React.Component{
@@ -102,6 +217,40 @@ onSelectionChange(newValue, event) {
     this.setState({
       mode: e.target.value
     })
+    var lang = e.target.value;
+    if(lang  == "javascript"){
+      this.setState({
+      value: defaultValueJavascript
+      })
+    }
+    else if (lang == "java"){
+      this.setState({
+      value: defaultValueJava
+      })
+    }
+    else if (lang == "python"){
+      this.setState({
+      value: defaultValue
+      })
+    }
+    else if (lang == "ruby"){
+      this.setState({
+      value: defaultValueRuby
+      })
+    }
+    else if (lang == "golang"){
+      this.setState({
+      value: defaultValueGo
+      })
+    }
+    else if (lang == "csharp"){
+      this.setState({
+      value: defaultValueCSharp
+      })
+    }
+    this.setState({
+      value: newValue
+      })
     Meteor.call("active_games.updateLang",this.props.game._id,e.target.value,(err,result)=>{
     console.log(err);
   })
@@ -116,13 +265,50 @@ onSelectionChange(newValue, event) {
       fontSize: parseInt(e.target.value,10)
     })
   }
+  showSuccess(ev){
+        this.setState({alert: this.getSuccess()});
+    }
+    getSuccess(){
+      return(
+          <SweetAlert success title="Good job!" timer= {1000} showConfirmButton={false} onConfirm={()=>this.setState({alert:null})}>
+            You submitted your code successfully.
+          </SweetAlert>
+        )
+    }
+  handleSubmit(){
+    var lang = this.state.mode;
+    if(lang  == "javascript"){
+      lang = 20;
+    }
+    else if (lang == "java"){
+      lang = 3;
+    }
+    else if (lang == "python"){
+      lang = 5;
+    }
+    else if (lang == "ruby"){
+      lang = 8;
+    }
+    else if (lang == "golang"){
+      lang = 21;
+    }
+    else if (lang == "csharp"){
+      lang = 9;
+    }
+    Meteor.call("active_games.submit",this.props.game._id,lang,(err,result)=>{
+      if(!err){
+        console.log(result)
+        this.showSuccess();
+      }
+    })
+  }
 
   constructor(props) {
     super(props);
     this.state = {
       value: defaultValue,
       theme: 'monokai',
-      mode: 'javascript',
+      mode: 'python',
       enableBasicAutocompletion: false,
       enableLiveAutocompletion: false,
       fontSize: 14,
@@ -132,11 +318,15 @@ onSelectionChange(newValue, event) {
       enableSnippets: false,
       showLineNumbers: true,
     };
+    Meteor.call("active_games.update",this.props.game._id,defaultValue,(err,result)=>{
+    });
     this.setTheme = this.setTheme.bind(this);
     this.setMode = this.setMode.bind(this);
     this.onChange = this.onChange.bind(this);
     this.setFontSize = this.setFontSize.bind(this);
     this.setBoolean = this.setBoolean.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.showSuccess = this.showSuccess.bind(this);
   }
 	render(){
 		return(
@@ -210,14 +400,6 @@ onSelectionChange(newValue, event) {
                           </label>
                         </p>
                       </div>
-                       <div className="field">
-                        <p className="control">
-                          <label className="checkbox">
-                            <input type="checkbox" checked={this.state.highlightActiveLine} onChange={(e) => this.setBoolean('highlightActiveLine', e.target.checked)} />
-                             Highlight Active Line
-                          </label>
-                        </p>
-                      </div>
                       <div className="field">
                         <p className="control">
                           <label className="checkbox">
@@ -256,8 +438,13 @@ onSelectionChange(newValue, event) {
                         showLineNumbers: this.state.showLineNumbers,
                         tabSize: 2,
                   }}/>
+                  <div className='set green'>
+                    <button className='btn pri ico' onClick={this.handleSubmit}>Submit!</button>
                   </div>
+                  </div>
+                  {this.state.alert}
             </div>
+
             )
 	}
 }

@@ -6,13 +6,14 @@ class Challenge extends React.Component{
 	
 	render(){
 		return(
-			<div>
+			<div className="row">
 			{this.props.challenge &&
-			<div className="challenge">
+			<div className=" challenge">
 				<h2>{this.props.challenge.name}</h2>
 				<br/>
 				<h4>{this.props.challenge.description}</h4>
-				 <strong> Input: </strong>
+				<div className="col-md-6">
+				 <strong>  Input: </strong>
 				<br/>
 				 {this.props.challenge.testInput.map((input)=>(
 				 		<div>
@@ -22,7 +23,9 @@ class Challenge extends React.Component{
 				 		)
 				 	)
 				}
-				 <strong> Output: </strong>
+				</div>
+				<div className="col-md-6">
+				 <strong>  Output: </strong>
 				 <br/>
 				 {this.props.challenge.testOutput.map((output)=>(
 				 	<div>
@@ -33,8 +36,9 @@ class Challenge extends React.Component{
 				 )
 				}
 				</div>
-			}
 			</div>
+			}
+		</div>
 		)
 	}
 }
