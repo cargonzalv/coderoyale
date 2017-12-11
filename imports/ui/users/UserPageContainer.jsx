@@ -1,10 +1,11 @@
 import { Meteor } from 'meteor/meteor';
 import React, {Component} from "react";
 import {createContainer} from "meteor/react-meteor-data";
+
 import "./ProfileSidebar.css"
 import ProfileSidebar from "./ProfileSidebar.jsx";
-import ProfileQuestionList from "./ProfileQuestionList.jsx"
-import {Questions} from '../../api/questions.js';
+import GamesList from "./ProfileGamesList.jsx"
+import {HistoryGame} from '../../api/history-games';
 
 
 class ProfilePage extends Component{
@@ -18,11 +19,11 @@ class ProfilePage extends Component{
 				<div className="container-fluid">
 					<div className="row">
 						<div className="col-sm-4">
-							<ProfileSidebar user={this.props.user} questions = {this.props.questions}/>
+							<ProfileSidebar user={this.props.user} games = {this.props.games}/>
 						</div>
 						<div className="col-sm-8">
-							<ProfileQuestionList user={this.props.user} currentUser = {this.props.currentUser}
-												 questions = {this.props.questions}/> 
+							<GamesList user={this.props.user} currentUser = {this.props.currentUser}
+												 games = {this.props.games}/> 
 						</div>
 					</div>
 				</div>
@@ -32,11 +33,10 @@ class ProfilePage extends Component{
 }
 
 export default createContainer(({id}) => { 
-  const handle = Meteor.subscribe('questions.myself', id)
+  const handle = Meteor.subscribe('game_history', id)
   return {
   	ready:handle.ready(),
-	questions: Questions.find({}, {sort:{"rating.rating":-1}}).fetch(),
+	games: HistoryGame.find({}).fetch(),
 	user: Meteor.users.findOne(id),
-	currentUser: Meteor.user()
   };
 }, ProfilePage);

@@ -13,13 +13,13 @@ import SweetAlert from "react-bootstrap-sweetalert";
 // Header //
 ////////////
 
-export default class Nav extends React.Component{
+class Nav extends React.Component{
 
   render() {
     return (
       <header className="Header">
         <Logo/>
-        <Navigation/>
+        <Navigation currentUser={this.props.currentUser}/>
       </header>
     );
   }
@@ -54,13 +54,18 @@ class Navigation extends Component{
 
   render() {
     let self = this;
+    const user = this.props.currentUser
+    console.log(user)
     return (
     <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
       <div id="navigation" className="Navigation">
         <nav>
           <ul>
             <li className="listItems" onClick={()=>{FlowRouter.go("/challenge")}}>Challenge</li>
-        </ul>
+            {user && 
+              <li className="listItems" onClick={()=>{FlowRouter.go("/user/" + user._id)}}>{user.profile.login}</li>
+            }
+          </ul>
         </nav>
       </div>
       
@@ -68,3 +73,9 @@ class Navigation extends Component{
     );
   }
 }
+
+export default createContainer(() => {
+  return {
+    currentUser:Meteor.user(),
+  };
+}, Nav);

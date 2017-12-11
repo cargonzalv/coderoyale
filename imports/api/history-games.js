@@ -22,4 +22,12 @@ if(Meteor.isServer){
 			]
 		})
 	})
+	Meteor.publish('game_history', function(id){
+		return HistoryGame.find({
+			$or:[
+				{winner:id},
+				{loser:id},
+			]
+		})
+	})
 }

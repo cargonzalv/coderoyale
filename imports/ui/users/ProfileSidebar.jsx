@@ -12,8 +12,8 @@ class UserSidebar extends Component{
 		this.onSendChanges = this.onSendChanges.bind(this)
 		this.onCancel = this.onCancel.bind(this)
 		this.state ={
-			image:this.props.user.img_url || "http://www.keita-gaming.com/assets/profile/default-avatar-c5d8ec086224cb6fc4e395f4ba3018c2.jpg",
-			bio: this.props.user.bio || "",
+			image:this.props.user.profile.avatar_url || "http://www.keita-gaming.com/assets/profile/default-avatar-c5d8ec086224cb6fc4e395f4ba3018c2.jpg",
+			bio: this.props.user.profile.bio || "",
 			isEditing:false
 		}
 	}
@@ -48,19 +48,20 @@ class UserSidebar extends Component{
 		})
 	}
 	render(){
-		const img_url = this.props.user.img_url || "http://www.keita-gaming.com/assets/profile/default-avatar-c5d8ec086224cb6fc4e395f4ba3018c2.jpg";
-		const username = this.props.user.username;
-		const userBio = this.props.user.bio || "This user doesn't has a bio yet.";
+		const img_url = this.props.user.profile.avatar_url || "http://www.keita-gaming.com/assets/profile/default-avatar-c5d8ec086224cb6fc4e395f4ba3018c2.jpg";
+		const username = this.props.user.profile.login;
+		const userBio = this.props.user.profile.bio || "This user doesn't has a bio yet.";
+		const githubLink = this.props.user.profile.html_url
 		const canEdit = Meteor.userId() === this.props.user._id;
 		const isEditing = this.state.isEditing;
-		const questions = this.props.questions;
+		const games = this.props.games;
 		let rating = 0;
 		let sum = 0;
-		questions.map((question)=>{
-			sum += question.rating.rating;
+		games.map((game)=>{
+			sum += game.winner === this.props.user._id?1:0;
 		})
-		if(questions.length != 0)
-			rating = sum/questions.length;
+		if(games.length != 0)
+			rating = sum/games.length;
 		else
 			rating = 0;
 		return(
@@ -72,9 +73,9 @@ class UserSidebar extends Component{
 				{!isEditing ?
 					<div className="profile-usertitle">
 					<div className="profile-usertitle-name">
-					{username}
+						<a href={githubLink} target="_blank">{username} <i className="fa fa-github" aria-hidden="true"></i></a>
 					</div>
-					Avg rating: {rating}/5
+					Win Rate: {rating}
 					<div className="profile-usertitle-bio">
 					{userBio}
 					</div>
