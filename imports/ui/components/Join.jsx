@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { Meteor } from 'meteor/meteor';
 import SweetAlert from "react-bootstrap-sweetalert";
+import { createContainer } from "meteor/react-meteor-data";
+import { Challenges } from '../../api/challenges.js';
+import { ActiveGame } from "../../api/active-games.js";
 
 
 class Join extends Component{
@@ -40,7 +43,7 @@ class Join extends Component{
   				<span>{'{'} </span><span>{'}'}
   				</span>
 				</div>}
-				style={{top:'10px'}}
+				style={{top:'20%'}}
 			>
             You're waiting to find a match!
           </SweetAlert>
@@ -51,23 +54,27 @@ class Join extends Component{
 		Meteor.call("active_games.join",(err,result)=>{
 			if(result){
 				setTimeout(()=>{
-          			FlowRouter.go("/challenge/"+result);
+          			FlowRouter.go("/game/"+result);
         		}, 2000); 
 			}
 			else{
-				Meteor.call("active-games.create",(err, result)=>{
-        		{ /*
-			        if(!err)
-			        this.showSuccess();
-
-			        setTimeout(()=>{
-			          FlowRouter.go("/question/"+result);
-			        }, 2000); 
-			      	})
-
-			   	*/}  
-				})
+				Meteor.call("active-games.create",(err, result2)=>{
+					var res = false;
+					var interval = window.setInterval(()=>{
+						var game = ActiveGame.findOne({_id:result2});
+							if(this.state.alert == null){
+								clearInterval(interval);
+							}
+							if(game.started){
+								clearInterval(interval);
+								FlowRouter.go("/game/"+result2);
+							}
+						},5000);
+						
+					})
 			}
+			
+			
 		})
 					
 	}
@@ -82,5 +89,8 @@ class Join extends Component{
 		)
 	}
 }
-
-export default Join
+export default createContainer(() => {
+  return {
+    currentUser:Meteor.user(),
+  };
+}, Join);

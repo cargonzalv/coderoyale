@@ -134,8 +134,8 @@ onSelectionChange(newValue, event) {
   }
 	render(){
 		return(
-			<div>
-                  <div className="column">
+			<div className="row">
+                  <div className="col-md-4">
                        <div className="field">
                          <label>
                            Mode:
@@ -229,8 +229,9 @@ onSelectionChange(newValue, event) {
                         </p>
                       </div>
                   </div>
+                  <div className="col-md-8">
 			<h2>Start coding!</h2>
-			<AceEditor
+			           <AceEditor
                         mode={this.state.mode}
                         theme={this.state.theme}
                         name="blah2"
@@ -251,6 +252,7 @@ onSelectionChange(newValue, event) {
                         showLineNumbers: this.state.showLineNumbers,
                         tabSize: 2,
                   }}/>
+                  </div>
             </div>
             )
 	}

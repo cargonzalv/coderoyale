@@ -3,7 +3,7 @@ import { Mongo } from "meteor/mongo";
 import { check } from "meteor/check";
 import SimpleSchema from "simpl-schema";
 
-import {Challenge} from './challenges' 
+import {Challenges} from './challenges' 
 import {HistoryGame} from './history-games'
 
 const activeGameSchema = new SimpleSchema({
@@ -36,6 +36,7 @@ if (Meteor.isServer) {
     })
   });
   Meteor.publish('my_current_games', function current_games(){
+
   	return ActiveGame.find({
   		started:true,
   		finished:false,
@@ -45,15 +46,9 @@ if (Meteor.isServer) {
   		]
   	})
   });
-  Meteor.publish('my_current_game', function current_game(id){
-  	return ActiveGame.findOne({
-  		started:true,
-  		finished:false,
-  		_id:id,
-  		$or:[
-  			{player1:this.userId},
-  			{player2:this.userId},
-  		]
+  Meteor.publish('queuedGames', function(id){
+  	return ActiveGame.find({
+  		finished:false
   	})
   });
 
@@ -75,17 +70,10 @@ Meteor.methods({
 			codeP2:'',
 
 		}
-		const handle = Meteor.subscribe('challenges');
-			Tracker.autorun(() => {
-  			const isReady = handle.ready();
-  			console.log(isReady)
-  			if(isReady){
-  				const randIndex = Math.floor(Math.random()*Challenge.find().count());
-				const rand_challenge = Challenge.findOne({},{skip:randIndex});
-				new_game.challenge = rand_challenge._id;
-				return ActiveGame.insert(new_game);
-		  	}
-		});
+  			const randIndex = Math.floor(Math.random()*Challenges.find({}).count());
+			const rand_challenge = Challenges.findOne({},{skip:randIndex});
+			new_game.challenge = rand_challenge._id;
+			return ActiveGame.insert(new_game);
 
 	},
 	'active_games.join'(){
@@ -137,7 +125,7 @@ Meteor.methods({
 		if(!game){
 			throw new Meteor.Error('no-such-game')
 		}
-		const challenge = Challenge.findOne({_id:game.challenge})
+		const challenge = Challenges.findOne({_id:game.challenge})
 		if(Meteor.isServer){
 			if(game.player1 == user_id){
 				HTTP.post("http://api.hackerrank.com/checker/submission.json", {
