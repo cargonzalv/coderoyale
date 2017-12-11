@@ -9,6 +9,7 @@ const historyGameSchema = new SimpleSchema({
 	loser:String,
 	codeP1:String,
 	codeP2:String,
+	game:String
 })
 
 export const HistoryGame = new Mongo.Collection("history_games")
@@ -21,7 +22,7 @@ if(Meteor.isServer){
 				{loser:this.userId},
 			]
 		})
-	})
+	});
 	Meteor.publish('game_history', function(id){
 		return HistoryGame.find({
 			$or:[
@@ -58,7 +59,8 @@ Meteor.methods({
 					'profile.challenges':id_challenge
 				},
 				$inc:{
-					'profile.totalChallenges':1
+					'profile.totalChallenges':1,
+					'profile.score':1
 				}
 			})
 		}

@@ -51,7 +51,10 @@ class Navigation extends Component{
       showPopup: !this.state.showPopup
     });
   }
-
+handleLogout(){
+    Meteor.logout();
+    FlowRouter.go("/");   
+  }
   render() {
     let self = this;
     const user = this.props.currentUser
@@ -61,9 +64,16 @@ class Navigation extends Component{
       <div id="navigation" className="Navigation">
         <nav>
           <ul>
-            {user && 
-              <li className="listItems" style={{right:"10%"}} onClick={()=>{FlowRouter.go("/user/" + user._id)}}>{user.profile.login}</li>
-            }
+            <li className="listItems" onClick={()=>{FlowRouter.go("/leaderboard")}}>Leaderboard</li>
+            {this.props.currentUser &&
+          <li className="account pull-right">
+            <div className="details">
+              <p className="headline">Logged in as:</p>
+              <p className="username text-primary"><a href={"/user/" + user._id}>{user.profile.login}</a></p> 
+            </div>
+            <div className="logout" onClick={this.handleLogout.bind(this)}>Log Out</div>
+          </li>
+        }
           </ul>
         </nav>
       </div>

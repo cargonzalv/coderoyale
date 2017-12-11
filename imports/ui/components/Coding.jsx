@@ -3,6 +3,7 @@ import { render } from 'react-dom';
 import brace from 'brace';
 import AceEditor from 'react-ace';
 import SweetAlert from "react-bootstrap-sweetalert";
+import { HistoryGame } from "../../api/history-games.js";
 
 import 'brace/mode/java';
 import 'brace/snippets/java';
@@ -270,8 +271,18 @@ onSelectionChange(newValue, event) {
     }
     getSuccess(){
       return(
-          <SweetAlert success title="Good job!" timer= {1000} showConfirmButton={false} onConfirm={()=>this.setState({alert:null})}>
-            You submitted your code successfully.
+          <SweetAlert success title="Congratulations!" timer= {1000} showConfirmButton={false} onConfirm={()=>this.handleConfirm()}>
+            All the test cases have passed. You won!
+          </SweetAlert>
+        )
+    }
+    showError(error,ev){
+        this.setState({alert: this.getError(error)});
+    }
+    getError(error){
+      return(
+          <SweetAlert danger title="Ooops!" timer= {1000} showConfirmButton={false} onConfirm={()=>this.setState({alert:null})}>
+            {error}
           </SweetAlert>
         )
     }
@@ -298,11 +309,44 @@ onSelectionChange(newValue, event) {
     Meteor.call("active_games.submit",this.props.game._id,lang,(err,result)=>{
       if(!err){
         console.log(result)
-        this.showSuccess();
+        if(result.error==""){
+          if(result.success){
+            this.showSuccess();
+          }
+          else{
+            var mistake = "The algorithm has passed "+result.passed + " of the "+result.totalTests+" test cases."
+            this.showError(mistake)
+          }
+        }
+        else{
+          this.showError(result.error)
+        }
       }
     })
   }
-
+  handleConfirm(){
+    this.setState({alert:null});
+    FlowRouter.go("/leaderboard")
+  }
+  handleLoss(){
+    this.setState({alert: this.getLoss()});
+  }
+    getLoss(){
+      return(
+          <SweetAlert 
+          custom
+          title="You lost" 
+          timer= {1000} 
+          showConfirmButton={false} 
+          onConfirm={this.handleConfirm}
+          customIcon={<div className="sad">
+          <span>{':'} </span><span>{'('}
+          </span>
+          </div>}
+        >
+          </SweetAlert>
+        )
+    }
   constructor(props) {
     super(props);
     this.state = {
@@ -327,6 +371,8 @@ onSelectionChange(newValue, event) {
     this.setBoolean = this.setBoolean.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.showSuccess = this.showSuccess.bind(this);
+    this.handleConfirm=this.handleConfirm.bind(this);
+    this.handleLoss=this.handleLoss.bind(this);
   }
 	render(){
 		return(
@@ -443,6 +489,7 @@ onSelectionChange(newValue, event) {
                   </div>
                   </div>
                   {this.state.alert}
+                  {this.props.history && this.props.history.loser == this.props.currentUser._id && this.state.alert == null && this.handleLoss()}
             </div>
 
             )
@@ -450,3 +497,4 @@ onSelectionChange(newValue, event) {
 }
 
 export default Coding
+

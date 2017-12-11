@@ -16,7 +16,7 @@ class SpectateList extends React.Component{
 			this.props.games.map((game, index) => {
 				return (
 					<li className="list-group-item d-flex justify-content-between align-items-center">
-          			<h5 className="mb-1">{game.challenge}</h5>
+          			<h5 className="mb-1">{game._id}</h5>
           			<button className="btn" onClick={() => this.spectate(game._id)}>Spectate</button>
 					</li>
 					)

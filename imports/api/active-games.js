@@ -198,6 +198,7 @@ Meteor.methods({
 								loser:game.player2,
 								codeP1:game.codeP1,
 								codeP2:game.codeP2,
+								game:game._id
 							})
 							Meteor.call('register-challenge',game.player1, challenge._id)
 						}
@@ -242,6 +243,7 @@ Meteor.methods({
 								loser:game.player1,
 								codeP1:game.codeP1,
 								codeP2:game.codeP2,
+								game:game._id
 							})
 							Meteor.call('register-challenge',game.player2, challenge._id)
 						}

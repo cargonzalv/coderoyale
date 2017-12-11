@@ -46,7 +46,7 @@ class Join extends Component{
   				<span>{'{'} </span><span>{'}'}
   				</span>
 				</div>}
-				style={{top:'20%'}}
+				style={{top:'30%'}}
 			>
             You're waiting to find a match!
           </SweetAlert>
