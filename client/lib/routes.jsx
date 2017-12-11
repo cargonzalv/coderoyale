@@ -4,6 +4,8 @@ import CodingPage from '../../imports/ui/pages/CodingPage.jsx';
 import ProfilePage from '../../imports/ui/users/UserPageContainer'
 import AddChallenge from '../../imports/ui/pages/AddChallenge';
 import SpectateView from '../../imports/ui/pages/SpectateView';
+import LeaderboardPage from '../../imports/ui/pages/LeaderboardPage'
+
 FlowRouter.route("/",{
 	action: function(params, queryParams) {
 		mount(App)
@@ -31,5 +33,11 @@ FlowRouter.route("/spectate/:id",{
 FlowRouter.route("/add",{
 	action: function(params, queryParams) {
 		mount(AddChallenge, {id:params.id})
+	}
+})
+
+FlowRouter.route("/leaderboard",{
+	action: function(params, queryParams) {
+		mount(LeaderboardPage)
 	}
 })

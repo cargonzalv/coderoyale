@@ -30,6 +30,15 @@ if(Meteor.isServer){
 			]
 		})
 	})
+	Meteor.publish('history_games.leaderboard', function(){
+		return Meteor.users.find({}, {
+			sort:{
+				'profile.totalChallenges':-1
+			},
+			limit:10,
+			fields: {profile:1},
+		})
+	})
 }
 
 Meteor.methods({
@@ -47,6 +56,9 @@ Meteor.methods({
 			Meteor.users.update({_id:id_user},{
 				$push:{
 					'profile.challenges':id_challenge
+				},
+				$inc:{
+					'profile.totalChallenges':1
 				}
 			})
 		}
