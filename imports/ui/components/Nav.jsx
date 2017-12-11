@@ -62,7 +62,7 @@ class Navigation extends Component{
         <nav>
           <ul>
             {user && 
-              <li className="listItems" style={{right:10%}} onClick={()=>{FlowRouter.go("/user/" + user._id)}}>{user.profile.login}</li>
+              <li className="listItems" style={{right:"10%"}} onClick={()=>{FlowRouter.go("/user/" + user._id)}}>{user.profile.login}</li>
             }
           </ul>
         </nav>

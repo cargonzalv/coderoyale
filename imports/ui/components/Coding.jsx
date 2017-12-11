@@ -72,11 +72,11 @@ onLoad() {
 
   onChange(newValue) {
     console.log('change', newValue);
-    
-    Meteor.call("active_games.update",this.props.game._id,newValue,(err,result)=>{
-      this.setState({
+    this.setState({
       value: newValue
       })
+    Meteor.call("active_games.update",this.props.game._id,newValue,(err,result)=>{
+
     })
   }
 onSelectionChange(newValue, event) {
@@ -102,6 +102,9 @@ onSelectionChange(newValue, event) {
     this.setState({
       mode: e.target.value
     })
+    Meteor.call("active_games.updateLang",this.props.game._id,e.target.value,(err,result)=>{
+    console.log(err);
+  })
   }
   setBoolean(name, value) {
     this.setState({
@@ -240,8 +243,6 @@ onSelectionChange(newValue, event) {
                         name="blah2"
                         onLoad={this.onLoad}
                         onChange={this.onChange}
-                        onSelectionChange={this.onSelectionChange}
-                        onCursorChange={this.onCursorChange}
                         onValidate={this.onValidate}
                         value={this.state.value}
                         fontSize={this.state.fontSize}
