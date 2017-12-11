@@ -249,4 +249,15 @@ body {
 .account>.logout {
     margin-left: 25px;
     padding:7px 10px;
+    font-size: 20px;
+}
+.logout:hover{
+	background:#e50914;
+	cursor:pointer;
+	font-weight: 400;
+	padding: 7px 10px;
+	font-size: 20px;
+	-webkit-transition: background .125s ease;
+	transition: background .125s ease;
+	border-radius: 3px;
 }
