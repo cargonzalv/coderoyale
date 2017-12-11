@@ -34,12 +34,6 @@ Meteor.methods({
       testOutput:testOutput
     };
 
-    Challenges.insert(new_challenge, function(err, id){
-      if(err){
-        throw new Meteor.Error('error-creating')
-      }else{
-        return id
-      }
-    });
+    return Challenges.insert(new_challenge);
   }
 });

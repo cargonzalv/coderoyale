@@ -141,7 +141,7 @@ onSelectionChange(newValue, event) {
                   <div className="col-md-4">
                        <div className="field">
                          <label>
-                           Mode:
+                           Programming Language:
                          </label>
                            <p className="control">
                              <span className="select">

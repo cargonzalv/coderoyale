@@ -48,7 +48,7 @@ Meteor.startup(() => {
   		"html_url");
 
   	user.profile = profile;
-
+    user.profile.score=0;
   	return user;
   });
   Meteor.methods({
