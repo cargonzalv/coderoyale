@@ -49,13 +49,15 @@ Meteor.startup(() => {
 
   	user.profile = profile;
     user.profile.score=0;
+    user.profile.challenges = []
+    user.profile.totalChallenges = 0
   	return user;
   });
 
   Meteor.publish("userData", function () {
     return Meteor.users.find({},
         {fields: {profile:1}});
-});
+  });
   Meteor.methods({
     'user.update'(newUserData){
       Meteor.users.update(this.userId, {

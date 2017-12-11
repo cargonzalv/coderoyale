@@ -30,4 +30,37 @@ if(Meteor.isServer){
 			]
 		})
 	})
+	Meteor.publish('history_games.leaderboard', function(){
+		return Meteor.users.find({}, {
+			sort:{
+				'profile.totalChallenges':-1
+			},
+			limit:10,
+			fields: {profile:1},
+		})
+	})
 }
+
+Meteor.methods({
+	'register-challenge'(id_user, id_challenge){
+		const challenges = Meteor.users.findOne({_id:id_user}).profile.challenges
+		var completed = false
+
+		challenges.forEach((challenge)=>{
+			if(challenge === id_challenge){
+				completed = true
+			}
+		})
+
+		if(!completed){
+			Meteor.users.update({_id:id_user},{
+				$push:{
+					'profile.challenges':id_challenge
+				},
+				$inc:{
+					'profile.totalChallenges':1
+				}
+			})
+		}
+	}
+})
