@@ -16,6 +16,8 @@ const activeGameSchema = new SimpleSchema({
 	player2:String,
 	codeP1:String,
 	codeP2:String,
+	lang1:String,
+	lang2:String
 })
 
 export const ActiveGame = new Mongo.Collection("active_games");
@@ -68,6 +70,8 @@ Meteor.methods({
 			player2:undefined,
 			codeP1:'',
 			codeP2:'',
+			lang1:'javascript',
+			lang2:'javascript'
 
 		}
   			const randIndex = Math.floor(Math.random()*Challenges.find({}).count());
@@ -109,12 +113,29 @@ Meteor.methods({
 	    }
 	    const game = ActiveGame.findOne({_id:gameId})
 	    if(game.player1 == Meteor.userId()){
-	    	ActiveGame.update({_id:game},{$set:{
+	    	ActiveGame.update({_id:gameId},{$set:{
 	    		codeP1:code
 	    	}})
 	    }else if(game.player2 == Meteor.userId()){
-	    	ActiveGame.update({_id:game_id},{$set:{
+	    	ActiveGame.update({_id:gameId},{$set:{
 	    		codeP2:code
+	    	}})
+	    }else{
+	    	throw new Meteor.Error('not-authorized')
+	    }
+	},
+	'active_games.updateLang'(gameId, lang){
+		if (! Meteor.userId()) {
+	      throw new Meteor.Error('not-authorized')
+	    }
+	    const game = ActiveGame.findOne({_id:gameId})
+	    if(game.player1 == Meteor.userId()){
+	    	ActiveGame.update({_id:gameId},{$set:{
+	    		lang1:lang
+	    	}})
+	    }else if(game.player2 == Meteor.userId()){
+	    	ActiveGame.update({_id:gameId},{$set:{
+	    		lang2:lang
 	    	}})
 	    }else{
 	    	throw new Meteor.Error('not-authorized')

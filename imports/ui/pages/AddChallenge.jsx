@@ -39,7 +39,7 @@ class AddChallenge extends React.Component{
     }
     getSuccess(){
       return(
-          <SweetAlert success title="Good job!" timer= {1000} showConfirmButton={false} onConfirm={this.setState({alert:null})}>
+          <SweetAlert success title="Good job!" timer= {1000} showConfirmButton={false} onConfirm={()=>this.setState({alert:null})}>
             Your question has been submited!
           </SweetAlert>
         )

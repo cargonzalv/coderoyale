@@ -51,6 +51,11 @@ Meteor.startup(() => {
     user.profile.score=0;
   	return user;
   });
+
+  Meteor.publish("userData", function () {
+    return Meteor.users.find({},
+        {fields: {profile:1}});
+});
   Meteor.methods({
     'user.update'(newUserData){
       Meteor.users.update(this.userId, {

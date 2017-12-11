@@ -3,7 +3,13 @@ import { ActiveGame } from '../../api/active-games.js';
 import {createContainer} from "meteor/react-meteor-data";
 
 class SpectateList extends React.Component{
-
+	constructor(props){
+		super(props)
+		this.spectate = this.spectate.bind(this);
+	}
+	spectate(idGame){
+		FlowRouter.go("/spectate/"+idGame);
+	}
 	showMatches(){
 		if(this.props.games.length != 0){
 		return (
@@ -11,7 +17,7 @@ class SpectateList extends React.Component{
 				return (
 					<li className="list-group-item d-flex justify-content-between align-items-center">
           			<h5 className="mb-1">{game.challenge}</h5>
-          			<button className="btn">Spectate</button>
+          			<button className="btn" onClick={() => this.spectate(game._id)}>Spectate</button>
 					</li>
 					)
 				})
