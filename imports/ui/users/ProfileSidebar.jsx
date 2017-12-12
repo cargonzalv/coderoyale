@@ -91,6 +91,13 @@ class UserSidebar extends Component{
 				(<div className="profile-usertitle">
 					<div className="form-group">
 					    <label htmlFor="imageUrl">Image Url</label>
+						
+						{/* Brandon Bohorquez: En el input para el URL de la imagen de perfil hace falta el atributo aria-label, lo cual afecta la accesibilidad de la aplicación. 
+						
+						<input aria-label="ImageURL" value={this.state.image} type="text" className="form-control" id="ImageUrl" 
+					    	placeholder="Enter url of your profile image" onChange={evt => this.onChangeImage(evt)}></input>
+						
+						*/}
 					    <input value={this.state.image} type="text" className="form-control" id="ImageUrl" 
 					    placeholder="Enter url of your profile image" onChange={evt => this.onChangeImage(evt)}></input>
 					 </div>
@@ -99,6 +106,9 @@ class UserSidebar extends Component{
 					    <input value={this.state.bio} type="text" className="form-control" id="bio" 
 					    placeholder="Talk about you" onChange={evt => this.onChangeBio(evt)}></input>
 					 </div>
+						{/* Brandon Bohorquez: El tamaño de los botones Save y Cancel es demasiado grande por lo que éstos se salen del contenedor,
+								       es necesario adecuarlos.
+						*/}
 					 <button onClick={this.onSendChanges} type="button" className="btn btn-primary btn-block">Save</button>
 					 <button onClick={this.onCancel} type="button" className="btn btn-danger btn-block">Cancel</button>
 				</div>
