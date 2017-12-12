@@ -163,6 +163,14 @@ Meteor.methods({
 		}
 		if(Meteor.isServer){
 			
+			/* Brandon Bohorquez: El código que se ejecuta dentro del if(game.player1 == user_id) y el que se ejecuta 
+			                      dentro del else if (game.player2 == user_id) es practicamente igual, sólo hay unos
+					      pequeños cambios dependiendo del ganador del juego.
+					      
+					      Así, en lugar de repetir tanto código, sería mejor sacar del if el código en común
+					      con el fin de hacerlo más simple y mantenible. */
+			
+			
 			if(game.player1 == user_id){
 				try{
 					var result = HTTP.post("http://api.hackerrank.com/checker/submission.json", {
