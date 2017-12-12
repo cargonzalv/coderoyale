@@ -9,10 +9,17 @@ class LeaderboardEntry extends Component {
 	}
 
 	handleClick(){
+		/*Brandon Bohorquez: Debería suceder algo cuando se le da click a algún usuario en el leaderBoard,
+		por ejemplo podrían abrir el perfil del usuario al que se le dio click.
+		Esto lo podrían hacer de forma similar a como lo implementaron en la clase ProfileSidebar al acceder al
+		perfil del usuario vía props:
+		
+		const githubLink = this.props.user.profile.html_url
+		*/
 	}
 
 	render(){
-
+		
 		const number = this.props.pos
 		const login = this.props.user.profile.login
 		const games = this.props.user.profile.totalChallenges
