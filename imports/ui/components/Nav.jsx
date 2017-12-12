@@ -58,7 +58,15 @@ handleLogout(){
   render() {
     let self = this;
     const user = this.props.currentUser
-    console.log(user)
+    
+    /* Brandon Bohorquez: Al utlizar la herramienta AXE se evidencia que los elementos en el NavBar no tienen suficiente contraste, 
+                          de esta forma, se podría considerar cambiar los colores de dichos elementos o del fondo. En particular,
+                          el color del nombre de usuario se confunde con el color de fondo.
+                          Es importante tener esto en cuenta para mejorar la accesibilidad y usabilidad de la aplicación.
+    
+    */
+    
+    // Eliminar console.log(user) para producción
     return (
     <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
       <div id="navigation" className="Navigation">
