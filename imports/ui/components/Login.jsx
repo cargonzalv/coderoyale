@@ -16,10 +16,11 @@ class Login extends React.Component{
 			requestPermissions: []
 		}, (err) => {
 		  if (err) {
-		    console.log(err);
+	            //Brandon Bohorquez: Eliminar console.log para producción.
+		    //console.log(err);
 		  } else {
-		    console.log("Success on github");
-		    console.log(Meteor.user());
+		    //console.log("Success on github");
+		    //console.log(Meteor.user());
 		  }
 		});
 	}
@@ -31,6 +32,8 @@ class Login extends React.Component{
 					If you don't have a github account yet create one
 					<a href="https://github.com"> github.com</a>, otherwise
 					login through the following button
+					{/*Debido a que el color de fondo y el del link de github son similares éste último 
+					no se alcanza a ver bien, revisar contraste.*/}
 				</p>
 				<button className="btn btn-lg" onClick={this.loginGithub}>
 					Github
