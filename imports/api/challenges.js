@@ -25,6 +25,14 @@ if (Meteor.isServer) {
 }
 
 Meteor.methods({
+  
+  /* Brandon Bohórquez: Sería mejor que el método recibiera un objeto con todos los atributos como parámetro, 
+                        de esta forma será más sencillo mantener la consistencia entre los diversos componentes de la aplicación:
+                        
+                        'challenges.create'(challenge) {
+                          return Challenges.insert(new_challenge);
+                        }
+  */
   'challenges.create'(name, description, testInput, testOutput){
 
     const new_challenge = {
