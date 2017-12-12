@@ -12,6 +12,7 @@ class Challenge extends React.Component{
 				<h2>{this.props.challenge.name}</h2>
 				<br/>
 				<h4>{this.props.challenge.description}</h4>
+				{/* Brandon Bohórquez: Sería bueno incorporar un reloj para mostrar el tiempo que lleva la partida. */}
 				<div className="col-md-6">
 				 <strong>  Input: </strong>
 				<br/>
