@@ -20,6 +20,10 @@ class LeaderboardEntry extends Component {
 			<a href= "#" onClick={this.handleClick.bind(this)} className={"list-group-item list-group-item-action flex-column align-items-start"}>
 				<div className="d-flex w-100 justify-content-between">
 					<h5 className="mb-1">{number +'. ' + login}</h5>
+					{/*Además de mostrar solamente el nombre del usuario sería bueno mosstrar otras
+					estadísticas como número de puntos o número de retos ganados. 
+					
+					Esto puede hacerse al pasar estas características vía props.*/}
 				</div>
 			</a>
 		);
